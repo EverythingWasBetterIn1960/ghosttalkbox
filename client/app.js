@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Routes from './routes'
+import Input from './components/index'
 
 const App = () => {
   return (
-    <div>
-      <h1> Ghost Talk Box</h1>
+    <div id="app">
+      <Input />
     </div>
   )
 }
