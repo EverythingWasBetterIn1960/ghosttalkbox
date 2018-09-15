@@ -20,13 +20,13 @@ class Input extends React.Component {
         return (
         <form onSubmit={this.handleSubmit}>
             <input
+            id="userChat"
             type="text"
             name="chat"
             autoFocus
             value={this.state.value}
             onChange={this.handleChange}
         />
-            <input type="submit" />
         </form>
         )
     } 
