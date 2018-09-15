@@ -1,9 +1,16 @@
 body {
     background-color: black
 }
+.app {
+    display: grid;
+    grid-template-columns: 40px 50px auto 50px 40px;
+    grid-template-rows: 25% 100px auto;
+}
 
 #userChat {
     filter: invert(100%);
     outline-width: 0;
     border: 0;
+    grid-column: 3 / span 2;
+    grid-row: third-line / 4;
 }
