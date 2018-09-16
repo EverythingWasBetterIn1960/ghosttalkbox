@@ -18,9 +18,9 @@ class Input extends React.Component {
 
     render() {
         return (
-        <form id="userChat" onSubmit={this.handleSubmit}>
+        <form className="userChat" onSubmit={this.handleSubmit}>
             <input
-            id="userChatInput"
+            className="userChatInput"
             type="textarea"
             name="chat"
             autoFocus
