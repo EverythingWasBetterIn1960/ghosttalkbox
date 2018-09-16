@@ -4,7 +4,7 @@ import Input from './components/input'
 import GhostChatBox from './components/ghost-chat-box'
 const App = () => {
   return (
-    <div id="userChatBox">
+    <div className="userChatBox">
       <Input />
       <GhostChatBox />
     </div>
