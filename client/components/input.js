@@ -18,10 +18,10 @@ class Input extends React.Component {
 
     render() {
         return (
-        <form onSubmit={this.handleSubmit}>
+        <form id="userChat" onSubmit={this.handleSubmit}>
             <input
-            id="userChat"
-            type="text"
+            id="userChatInput"
+            type="textarea"
             name="chat"
             autoFocus
             value={this.state.value}

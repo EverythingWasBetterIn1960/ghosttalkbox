@@ -1,16 +1,20 @@
 body {
     background-color: black
 }
-.app {
+
+#userChatBox {
     display: grid;
-    grid-template-columns: 40px 50px auto 50px 40px;
-    grid-template-rows: 25% 100px auto;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
 }
 
 #userChat {
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+
+#userChatInput {
     filter: invert(100%);
     outline-width: 0;
     border: 0;
-    grid-column: 3 / span 2;
-    grid-row: third-line / 4;
 }
