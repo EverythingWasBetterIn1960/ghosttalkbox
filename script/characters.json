@@ -1,0 +1,14 @@
+[{
+  "name": "Charlie",
+  "yearOfBirth": "1902",
+  "causeOfDeath": "Died in the Great War",
+  "desires": "Chocolate"
+},
+
+{
+  "name": "Amy",
+  "yearOfBirth": "1956",
+  "causeOfDeath": "Cancer",
+  "desires": "To Walk Again"
+}
+]

@@ -1,3 +1,9 @@
 //const __ = require(./)
+const Character = require('./character');
+const Interaction  = require('./interaction')
 
-module.exports = {}
+Interaction.belongsTo(Character);
+Character.hasMany(Interaction)
+
+
+module.exports = {Character, Interaction}
