@@ -1,0 +1,21 @@
+[{
+  "response": "That's Interesting",
+  "CharacterId": 1,
+  "options": [2,2,2]
+},
+{
+  "response": "Oh That's very Interesting",
+  "CharacterId": 1,
+  "options": [null,null,null]
+},
+{
+  "response": "I'm The other one",
+  "CharacterId": 2,
+  "options": [4,4,4]
+},
+{
+  "response": "Don't You wonder who",
+  "CharacterId": 2,
+  "options": [null,null, null]
+}
+]

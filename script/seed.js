@@ -1,9 +1,15 @@
 'use strict'
-
+const characters = require('./characters.json')
+const interactions = require('./interactions.json')
 const db = require('../server/db')
+const {Character, Interaction} = require("../server/db/models")
 
 async function seed() {
   await db.sync({force: true})
+
+  await Character.bulkCreate(characters);
+  await Interaction.bulkCreate(interactions)
+
   console.log('db synced!')
   console.log(`seeded successfully`)
 }
