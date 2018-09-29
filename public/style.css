@@ -1,0 +1,43 @@
+#main {
+  background-color: rgb(1, 12, 30);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+}
+
+#chatbox {
+  background-color: rgb(83, 94, 89);
+  z-index: 1;
+  width: 60%;
+  height: 40%;
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+}
+
+#chatbox-input, input{
+  height: 20%;
+  width: 86%;
+  background-color: rgb(64, 209, 152);
+  border: 1px solid black;
+  position: relative;
+  top: 10%;
+  left: 7%;
+}
+
+#chatbox-input input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 2em;
+}
+#chatbox-input input, input::placeholder {
+  color: white
+}
+
