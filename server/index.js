@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load()
+}
 const path = require('path')
 const express = require('express')
 const compression = require('compression')
@@ -29,7 +32,7 @@ const createApp = () => {
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
-    console.log('\n\n\n', "Req:",req, "\n\n\n");
+    console.log('\n\n\n', 'Req:', req, '\n\n\n')
     if (path.extname(req.path).length) {
       const err = new Error('Not found')
       err.status = 404
