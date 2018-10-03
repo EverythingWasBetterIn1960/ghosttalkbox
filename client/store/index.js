@@ -5,8 +5,14 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import CurrentCharacter from './CurrentCharacter'
 import CurrentInteraction from './CurrentInteraction'
+import TotalInputScore from './TotalInputScore'
 
-const reducer = combineReducers({user, CurrentCharacter, CurrentInteraction})
+const reducer = combineReducers({
+  user,
+  CurrentCharacter,
+  CurrentInteraction,
+  TotalInputScore
+})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
@@ -16,3 +22,4 @@ export default store
 export * from './user'
 export * from './CurrentCharacter'
 export * from './CurrentInteraction'
+export * from './TotalInputScore'
