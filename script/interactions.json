@@ -1,21 +1,154 @@
-[{
-  "response": "That's Interesting",
-  "CharacterId": 1,
-  "options": [2,2,2]
-},
-{
-  "response": "Oh That's very Interesting",
-  "CharacterId": 1,
-  "options": [null,null,null]
-},
-{
-  "response": "I'm The other one",
-  "CharacterId": 2,
-  "options": [4,4,4]
-},
-{
-  "response": "Don't You wonder who",
-  "CharacterId": 2,
-  "options": [null,null, null]
-}
+[
+  {
+    "response": "Charlie Start",
+    "CharacterId": 1,
+    "options": [2, 3, 4],
+    "isRoot": true
+  },
+  {
+    "response": "Charlie 2",
+    "CharacterId": 1,
+    "options": [3, 4, 5],
+    "isRoot": false
+  },
+  {
+    "response": "Charlie 3",
+    "CharacterId": 1,
+    "options": [6, 7, 8],
+    "isRoot": false
+  },
+  {
+    "response": "Charlie 4",
+    "CharacterId": 1,
+    "options": [6, 7, 8],
+    "isRoot": false
+  },
+  {
+    "response": "Charlie 5",
+    "CharacterId": 1,
+    "options": [3, 4, 5],
+    "isRoot": false
+  },
+  {
+    "response": "Charlie 6",
+    "CharacterId": 1,
+    "options": [null, 7, 8],
+    "isRoot": false
+  },
+  {
+    "response": "Charlie 7",
+    "CharacterId": 1,
+    "options": [null, null, 8],
+    "isRoot": false
+  },
+  {
+    "response": "Charlie 8",
+    "CharacterId": 1,
+    "options": [null, null, null],
+    "isRoot": false
+  },
+
+  {
+    "response": "Amy start, 9",
+    "CharacterId": 2,
+    "options": [10, 12, 14],
+    "isRoot": true
+  },
+  {
+    "response": "Amy 2, 10",
+    "CharacterId": 2,
+    "options": [11, 12, 14],
+    "isRoot": true
+  },
+  {
+    "response": "Amy 3, 11",
+    "CharacterId": 1,
+    "options": [null, 12, 14],
+    "isRoot": false
+  },
+  {
+    "response": "Amy 4, 12",
+    "CharacterId": 1,
+    "options": [10, 13, 14],
+    "isRoot": false
+  },
+  {
+    "response": "Amy 5, 13",
+    "CharacterId": 1,
+    "options": [10, null, 14],
+    "isRoot": false
+  },
+  {
+    "response": "Amy 6, 14",
+    "CharacterId": 1,
+    "options": [10, 12, 15],
+    "isRoot": false
+  },
+  {
+    "response": "Amy 7, 15",
+    "CharacterId": 1,
+    "options": [10, 12, 16],
+    "isRoot": false
+  },
+  {
+    "response": "Amy 8, 16",
+    "CharacterId": 1,
+    "options": [10, 12, null],
+    "isRoot": false
+  },
+
+  {
+    "response": "Bernie start, 17",
+    "CharacterId": 3,
+    "options": [18, 20, null]
+  },
+
+  {
+    "response": "Bernie 2, 18",
+    "CharacterId": 2,
+    "options": [19, 12, 14],
+    "isRoot": true
+  },
+  {
+    "response": "Bernie 3, 19",
+    "CharacterId": 2,
+    "options": [null, 12, 14],
+    "isRoot": true
+  },
+  {
+    "response": "Bernie 4, 20",
+    "CharacterId": 1,
+    "options": [null, 21, 14],
+    "isRoot": false
+  },
+  {
+    "response": "Bernie 5, 21",
+    "CharacterId": 1,
+    "options": [18, 22, 14],
+    "isRoot": false
+  },
+  {
+    "response": "Bernie 6, 22",
+    "CharacterId": 1,
+    "options": [18, null, 23],
+    "isRoot": false
+  },
+  {
+    "response": "Bernie 7, 23",
+    "CharacterId": 1,
+    "options": [10, 12, 24],
+    "isRoot": false
+  },
+  {
+    "response": "Bernie 8, 24",
+    "CharacterId": 1,
+    "options": [10, 12, 25],
+    "isRoot": false
+  },
+  {
+    "response": "Bernie 9, 25",
+    "CharacterId": 1,
+    "options": [10, 12, null],
+    "isRoot": false
+  }
 ]

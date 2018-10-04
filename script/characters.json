@@ -1,14 +1,24 @@
-[{
-  "name": "Charlie",
-  "yearOfBirth": "1902",
-  "causeOfDeath": "Died in the Great War",
-  "desires": "Chocolate"
-},
+[
+  {
+    "name": "Charlie",
+    "yearOfBirth": "1901",
+    "causeOfDeath": "Died in the Great War",
+    "desires": "Chocolate",
+    "ageAtDeath": "17"
+  },
 
-{
-  "name": "Amy",
-  "yearOfBirth": "1956",
-  "causeOfDeath": "Cancer",
-  "desires": "To Walk Again"
-}
+  {
+    "name": "Amy",
+    "yearOfBirth": "1956",
+    "causeOfDeath": "Cancer",
+    "ageAtDeath": "61",
+    "desires": "To Walk Again"
+  },
+  {
+    "name": "Bernie",
+    "yearOfBirth": "1942",
+    "causeOfDeath": "Car Accident",
+    "ageAtDeath": "52",
+    "desires": "To make up for the loss of his father at an early age"
+  }
 ]
