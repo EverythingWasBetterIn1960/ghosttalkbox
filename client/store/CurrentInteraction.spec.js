@@ -98,7 +98,7 @@ describe('Current Interaction', () => {
     })
     it('gets a interaction by id', async () => {
       mockAxios
-        .onGet('/api/interactions/node/2')
+        .onGet('/api/interaction/node/2')
         .replyOnce(200, fakeResponses[1])
       console.log('Test')
       await store.dispatch(fetchInteraction(2))
@@ -114,7 +114,7 @@ describe('Current Interaction', () => {
     })
     it('gets a interaction by root', async () => {
       mockAxios
-        .onGet('/api/interactions/root/1')
+        .onGet('/api/interaction/root/character/1')
         .replyOnce(200, fakeResponses[0])
       await store.dispatch(fetchRootInteraction(1))
       const actions = store.getActions()
@@ -130,14 +130,14 @@ describe('Current Interaction', () => {
     it('can pull the id of the next interaction from options', async () => {
       //get the first interaction
       mockAxios
-        .onGet('/api/interactions/root/1')
+        .onGet('/api/interaction/root/character/1')
         .replyOnce(200, fakeResponses[0])
       await store.dispatch(fetchRootInteraction(1))
       let actions = store.getActions()
       const nextId = actions[0].interaction.options[0]
       //Find the followup interaction with nextId
       mockAxios
-        .onGet('/api/interactions/node/2')
+        .onGet('/api/interaction/node/2')
         .replyOnce(200, fakeResponses[1])
       await store.dispatch(fetchInteraction(nextId))
       actions = store.getActions()

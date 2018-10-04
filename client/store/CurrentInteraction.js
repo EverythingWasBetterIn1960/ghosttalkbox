@@ -27,9 +27,11 @@ export const gotRootInteraction = rootInteraction => ({
 
 export const fetchRootInteraction = characterId => {
   return async dispatch => {
+    console.log('Root')
     const {data: rootInteraction} = await Axios.get(
-      '/api/interactions/root/' + characterId
+      '/api/interaction/root/character/' + characterId
     )
+    console.log(rootInteraction)
     dispatch(gotRootInteraction(rootInteraction))
   }
 }
@@ -37,7 +39,7 @@ export const fetchRootInteraction = characterId => {
 export const fetchInteraction = interactionId => {
   return async dispatch => {
     const {data: interactionNode} = await Axios.get(
-      '/api/interactions/node/' + interactionId
+      '/api/interaction/node/' + interactionId
     )
     dispatch(gotInteraction(interactionNode))
   }

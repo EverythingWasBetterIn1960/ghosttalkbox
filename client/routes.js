@@ -10,6 +10,7 @@ const baseComponent = () => (
 
 class Routes extends Component {
   componentDidMount() {
+    console.log('testing')
     this.props.load()
   }
 
@@ -25,3 +26,5 @@ class Routes extends Component {
 const mapDispatch = dispatch => ({
   load: () => console.log('I will fetch initial data from the server')
 })
+
+export default connect(null, mapDispatch)(Routes)
