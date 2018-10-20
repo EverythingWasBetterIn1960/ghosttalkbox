@@ -1,14 +1,12 @@
 /**
- * The Character Question Parser parses user input and determines whethere there is a match for
- * a factual question that can be answered from the ghost's profile.
+ * The Character Question Parser parses user input and determines whether there is a match for a factual question that can be answered from the ghost's profile.
  *
  * ex: What is your name? - parses to 'name', character will respond with name
  *
- * The Question Parser consists of the ruleTrie and a parsing algorith.
+ * The Question Parser consists of the ruleTrie and a parsing algorithm.
  *
  * The ruleTrie is a set of nested objects that represent the composition of a question.
- * A word object's properties are the potential next words in the question. At a questions end or
- * when enough of a question has been constructed to match a profile rule, the word node will contain a boolean to stop parsing and an identifier for the profile rule the question meets.
+ * A word object's properties are the potential next words in the question. At a questions end or when enough of a question has been constructed to match a profile rule, the word node will contain a boolean to stop parsing and an identifier for the profile rule the question meets will be returned.
  *
  * The parsing algorithm traverses the ruleTrie, looking to match each word in the question with a corresponding property in the current ruleTrie node until either a rule is met or no matches can be made.
  */
@@ -275,6 +273,12 @@ const ruleTrie = {
 }
 
 const parsingAlgorithm = input => {
+  //remove punctuation
+  const lastChar = input[input.length - 1]
+  if (lastChar === '?' || lastChar === '.' || lastChar === '!') {
+    input = input.slice(0, input.length - 1)
+  }
+
   const inputArray = input.toLowerCase().split(' ')
   let idx = 0
   let profileRule = null
@@ -282,11 +286,13 @@ const parsingAlgorithm = input => {
   let parsing = true
 
   while (parsing && idx <= inputArray.length) {
-    if (currentNode[inputArray[idx]]) {
+    if (currentNode.profileRule) {
+      profileRule = currentNode.profileRule
+      parsing = false
+    } else if (currentNode[inputArray[idx]]) {
       currentNode = currentNode[inputArray[idx]]
       idx++
     } else {
-      profileRule = currentNode.profileRule
       parsing = false
     }
   }
