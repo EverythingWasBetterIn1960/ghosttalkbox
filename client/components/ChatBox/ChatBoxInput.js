@@ -4,6 +4,8 @@ import {
   fetchRootInteraction
 } from '../../store/CurrentInteraction'
 import {connect} from 'react-redux'
+import profileRuleLookup from '../../utils/characterQuestionParser'
+import axios from 'axios'
 
 class ChatBoxInput extends Component {
   constructor(props) {
@@ -17,9 +19,34 @@ class ChatBoxInput extends Component {
   handleChange(evt) {
     this.setState({userInput: evt.target.value})
   }
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault()
-    this.props.getNextInteraction(this.state.userInput)
+    const input = this.state.userInput
+    //run rules trie
+    const profileRule = profileRuleLookup(input)
+    if (profileRule) {
+      console.log('Prof', profileRule)
+    } //lookup Bio Response
+
+    //score input sentiment
+    const {data: sentimentScore} = await axios.post('/api/scoring', {input})
+    console.log('Score', sentimentScore)
+    let optionNum
+    //extract appropriate optionId based on score
+    if (
+      sentimentScore.postive >
+      Math.max(sentimentScore.negative, sentimentScore.neutral)
+    )
+      optionNum = 0
+    else if (
+      sentimentScore.negative >
+      Math.max(sentimentScore.positive, sentimentScore.neutral)
+    )
+      optionNum = 1
+    else optionNum = 2
+
+    console.log('Num', optionNum, this.props.interaction.options[optionNum])
+    this.props.getNextInteraction(this.props.interaction.options[optionNum])
   }
 
   render() {
@@ -39,11 +66,14 @@ class ChatBoxInput extends Component {
   }
 }
 
+const mapState = state => ({
+  interaction: state.CurrentInteraction
+})
+
 const mapDispatch = (dispatch, props) => ({
-  getNextInteraction: userInput => {
-    console.log('Fetch Inter', props)
+  getNextInteraction: optionId => {
     if (props.encounterInitialized) {
-      dispatch(fetchInteraction(1))
+      dispatch(fetchInteraction(optionId))
     } else {
       props.initEncounter()
       dispatch(fetchRootInteraction(props.character.id))
@@ -51,4 +81,4 @@ const mapDispatch = (dispatch, props) => ({
   }
 })
 
-export default connect(null, mapDispatch)(ChatBoxInput)
+export default connect(mapState, mapDispatch)(ChatBoxInput)
