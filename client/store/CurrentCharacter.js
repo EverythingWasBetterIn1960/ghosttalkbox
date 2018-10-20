@@ -24,7 +24,6 @@ export const fetchCharacter = characterId => {
     const {data: characterData} = await Axios.get(
       '/api/character/' + characterId
     )
-    console.log(characterData)
     dispatch(gotCharacter(characterData))
   }
 }
