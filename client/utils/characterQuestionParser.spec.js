@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 import questionParser from './characterQuestionParser'
 
-describe.only('Character Question Parser', () => {
+describe('Character Question Parser', () => {
   it('Will return null if no match', () => {
     const res1 = questionParser('Hello')
     const res2 = questionParser('World')
