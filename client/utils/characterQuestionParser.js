@@ -11,6 +11,8 @@
  * The parsing algorithm traverses the ruleTrie, looking to match each word in the question with a corresponding property in the current ruleTrie node until either a rule is met or no matches can be made.
  */
 
+const dummyResposes = ['response 1', 'response 2', 'response 3']
+
 const ruleTypes = {
   AFTERLIFE: {
     AT_PEACE: 'AT_PEACE',
@@ -19,8 +21,8 @@ const ruleTypes = {
     }
   },
   DEATH: {
-    LOCATION: 'LOCATION',
-    CAUSE: 'CAUSE',
+    LOCATION: 'DEATH_LOCATION',
+    CAUSE: 'CAUSE_OF_DEATH,',
     MURDERED: 'MURDERED'
   },
   DESIRES: {},
@@ -159,7 +161,9 @@ const ruleTrie = {
   how: {
     did: {
       you: {
-        die: {}
+        die: {
+          profileRule: ruleTypes.DEATH.CAUSE
+        }
       }
     },
     old: {
@@ -280,6 +284,7 @@ const parsingAlgorithm = input => {
   }
 
   const inputArray = input.toLowerCase().split(' ')
+  console.log(inputArray)
   let idx = 0
   let profileRule = null
   let currentNode = ruleTrie

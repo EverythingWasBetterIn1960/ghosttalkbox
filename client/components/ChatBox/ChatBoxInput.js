@@ -1,8 +1,14 @@
 import React, {Component} from 'react'
 import {
   fetchInteraction,
-  fetchRootInteraction
-} from '../../store/CurrentInteraction'
+  fetchRootInteraction,
+  gotFactualResponse,
+  addToPositiveScore,
+  addToNegativeScore,
+  addToNeutralScore,
+  incrementQuestionAsked
+} from '../../store'
+import {useResponse} from '../../store/CurrentCharacterProfileResponses'
 import {connect} from 'react-redux'
 import profileRuleLookup from '../../utils/characterQuestionParser'
 import axios from 'axios'
@@ -21,32 +27,56 @@ class ChatBoxInput extends Component {
   }
   async handleSubmit(evt) {
     evt.preventDefault()
+
     const input = this.state.userInput
+
     //run rules trie
     const profileRule = profileRuleLookup(input)
+    console.log(profileRule)
+    //if there's a profile rule, look up the rule in the character info
     if (profileRule) {
-      console.log('Prof', profileRule)
-    } //lookup Bio Response
+      //pull the responses from State
+      const responseObj = this.props.responses[profileRule]
+      //pull number of times ask
+      if (responseObj.timesAsked > 0) {
+        //Neg Score = Constant * times Asked
+        const negVal = 20 * responseObj.timesAsked
+        //Dispatch score update
+        this.props.updateNegativeInputScore(negVal)
+        this.props.incrementQuestionAskedCount(profileRule)
+      }
+      //check if responses array is not empty
+      let questionResponse = '......'
+      if (responseObj.responses.length) {
+        //pull response
+        questionResponse = responseObj.responses[0]
+        //shift off the reponses array
+        this.props.updateResponseArray(profileRule)
+        this.props.incrementQuestionAskedCount(profileRule)
+      }
+      //update interactions
+      this.props.updateInteractionWithProfileResponse(questionResponse)
+    } else {
+      //run score input sentiment
+      const {data: sentimentScore} = await axios.post('/api/scoring', {input})
+      //console.log('Score', sentimentScore)
+      let optionNum
+      //extract appropriate optionId based on score
+      if (
+        sentimentScore.postive >
+        Math.max(sentimentScore.negative, sentimentScore.neutral)
+      )
+        optionNum = 0
+      else if (
+        sentimentScore.negative >
+        Math.max(sentimentScore.positive, sentimentScore.neutral)
+      )
+        optionNum = 1
+      else optionNum = 2
 
-    //score input sentiment
-    const {data: sentimentScore} = await axios.post('/api/scoring', {input})
-    console.log('Score', sentimentScore)
-    let optionNum
-    //extract appropriate optionId based on score
-    if (
-      sentimentScore.postive >
-      Math.max(sentimentScore.negative, sentimentScore.neutral)
-    )
-      optionNum = 0
-    else if (
-      sentimentScore.negative >
-      Math.max(sentimentScore.positive, sentimentScore.neutral)
-    )
-      optionNum = 1
-    else optionNum = 2
-
-    console.log('Num', optionNum, this.props.interaction.options[optionNum])
-    this.props.getNextInteraction(this.props.interaction.options[optionNum])
+      //console.log('Num', optionNum, this.props.interaction.options[optionNum])
+      this.props.getNextInteraction(this.props.interaction.options[optionNum])
+    }
   }
 
   render() {
@@ -66,10 +96,14 @@ class ChatBoxInput extends Component {
   }
 }
 
+//Properties brought down from the store and inserted into props
 const mapState = state => ({
-  interaction: state.CurrentInteraction
+  interaction: state.CurrentInteraction,
+  character: state.CurrentCharacter,
+  responses: state.ProfileReponses
 })
 
+//Methods to Dispatch Updates to Store
 const mapDispatch = (dispatch, props) => ({
   getNextInteraction: optionId => {
     if (props.encounterInitialized) {
@@ -78,6 +112,27 @@ const mapDispatch = (dispatch, props) => ({
       props.initEncounter()
       dispatch(fetchRootInteraction(props.character.id))
     }
+  },
+  incrementQuestionAskedCount: ruleType => {
+    dispatch(incrementQuestionAsked(ruleType))
+  },
+  updateResponseArray: ruleType => {
+    dispatch(useResponse(ruleType))
+  },
+  updatePositiveInputScore: positiveValue => {
+    //affect the total input point score
+    dispatch(addToPositiveScore(positiveValue))
+  },
+  updateNeutralInputScore: neutralValue => {
+    //affect the total input point score
+    dispatch(addToNeutralScore(neutralValue))
+  },
+  updateNegativeInputScore: negativeValue => {
+    //affect the total input point score
+    dispatch(addToNegativeScore(negativeValue))
+  },
+  updateInteractionWithProfileResponse: response => {
+    dispatch(gotFactualResponse(response))
   }
 })
 

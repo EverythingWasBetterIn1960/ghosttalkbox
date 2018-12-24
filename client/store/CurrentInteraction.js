@@ -5,7 +5,8 @@ import Axios from 'axios'
  */
 const ActionTypes = {
   GOT_INTERACTION: 'GOT_INTERACTION',
-  GOT_ROOT_INTERACTION: 'GOT_ROOT_INTERACTION'
+  GOT_ROOT_INTERACTION: 'GOT_ROOT_INTERACTION',
+  GOT_FACTUAL_RESPONSE: 'GOT_FACTUAL_RESPONSE'
 }
 
 /**
@@ -14,6 +15,11 @@ const ActionTypes = {
 export const gotInteraction = interaction => ({
   type: ActionTypes.GOT_INTERACTION,
   interaction
+})
+
+export const gotFactualResponse = response => ({
+  type: ActionTypes.GOT_FACTUAL_RESPONSE,
+  response
 })
 
 export const gotRootInteraction = rootInteraction => ({
@@ -65,6 +71,8 @@ const interactionReducer = (interactionState = defaultInteraction, action) => {
     }
     case ActionTypes.GOT_ROOT_INTERACTION:
       return action.interaction
+    case ActionTypes.GOT_FACTUAL_RESPONSE:
+      return {...interactionState, response: action.response}
     default:
       return interactionState
   }

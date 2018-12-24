@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {ChatBox, GhostResponse} from './components/'
 import {connect} from 'react-redux'
-import {fetchCharacter, fetchRootInteraction} from './store'
+import {fetchCharacter, fetchProfileResponses} from './store'
+import {findCharacterId} from './utils/controls'
 
 // import Routes from './routes'  - Unsure if I will need routes yet
 
@@ -23,7 +24,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div id="main">
         <h1> Ghost Talk Box</h1>
@@ -44,7 +44,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   load: () => {
-    const characterId = 1
+    let characterId = findCharacterId()
+    dispatch(fetchProfileResponses(characterId))
     dispatch(fetchCharacter(characterId))
   }
 })

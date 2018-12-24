@@ -6,12 +6,14 @@ import user from './user'
 import CurrentCharacter from './CurrentCharacter'
 import CurrentInteraction from './CurrentInteraction'
 import TotalInputScore from './TotalInputScore'
+import ProfileReponses from './CurrentCharacterProfileResponses'
 
 const reducer = combineReducers({
   user,
   CurrentCharacter,
   CurrentInteraction,
-  TotalInputScore
+  TotalInputScore,
+  ProfileReponses
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -23,3 +25,4 @@ export * from './user'
 export * from './CurrentCharacter'
 export * from './CurrentInteraction'
 export * from './TotalInputScore'
+export * from './CurrentCharacterProfileResponses'
