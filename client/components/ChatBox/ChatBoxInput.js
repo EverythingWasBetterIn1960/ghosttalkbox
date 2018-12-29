@@ -6,6 +6,7 @@ import {
   addToPositiveScore,
   addToNegativeScore,
   addToNeutralScore,
+  addToAllScores,
   incrementQuestionAsked
 } from '../../store'
 import {useResponse} from '../../store/CurrentCharacterProfileResponses'
@@ -32,7 +33,6 @@ class ChatBoxInput extends Component {
 
     //run rules trie
     const profileRule = profileRuleLookup(input)
-    console.log(profileRule)
     //if there's a profile rule, look up the rule in the character info
     if (profileRule) {
       //pull the responses from State
@@ -59,22 +59,27 @@ class ChatBoxInput extends Component {
     } else {
       //run score input sentiment
       const {data: sentimentScore} = await axios.post('/api/scoring', {input})
-      //console.log('Score', sentimentScore)
+      this.props.updateAllScores({...sentimentScore})
+
       let optionNum
       //extract appropriate optionId based on score
       if (
-        sentimentScore.postive >
-        Math.max(sentimentScore.negative, sentimentScore.neutral)
+        this.props.totalInputScore.postive >
+        Math.max(
+          this.props.totalInputScore.negative,
+          this.props.totalInputScore.neutral
+        )
       )
         optionNum = 0
       else if (
-        sentimentScore.negative >
-        Math.max(sentimentScore.positive, sentimentScore.neutral)
+        this.props.totalInputScore.negative >
+        Math.max(
+          this.props.totalInputScore.positive,
+          this.props.totalInputScore.neutral
+        )
       )
         optionNum = 1
       else optionNum = 2
-
-      //console.log('Num', optionNum, this.props.interaction.options[optionNum])
       this.props.getNextInteraction(this.props.interaction.options[optionNum])
     }
   }
@@ -100,7 +105,8 @@ class ChatBoxInput extends Component {
 const mapState = state => ({
   interaction: state.CurrentInteraction,
   character: state.CurrentCharacter,
-  responses: state.ProfileReponses
+  responses: state.ProfileReponses,
+  totalInputScore: state.TotalInputScore
 })
 
 //Methods to Dispatch Updates to Store
@@ -130,6 +136,9 @@ const mapDispatch = (dispatch, props) => ({
   updateNegativeInputScore: negativeValue => {
     //affect the total input point score
     dispatch(addToNegativeScore(negativeValue))
+  },
+  updateAllScores: scores => {
+    dispatch(addToAllScores(scores))
   },
   updateInteractionWithProfileResponse: response => {
     dispatch(gotFactualResponse(response))

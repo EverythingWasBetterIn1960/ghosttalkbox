@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {ChatBox, GhostResponse} from './components/'
 import {connect} from 'react-redux'
 import {fetchCharacter, fetchProfileResponses} from './store'
-import {findCharacterId} from './utils/controls'
+import {findCharacterId, setCharacterId} from './utils/controls'
 
 // import Routes from './routes'  - Unsure if I will need routes yet
 
@@ -45,6 +45,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   load: () => {
     let characterId = findCharacterId()
+    console.log(characterId)
+    setCharacterId(characterId)
     dispatch(fetchProfileResponses(characterId))
     dispatch(fetchCharacter(characterId))
   }

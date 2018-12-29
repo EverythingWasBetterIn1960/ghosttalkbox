@@ -22,7 +22,7 @@ const ruleTypes = {
   },
   DEATH: {
     LOCATION: 'DEATH_LOCATION',
-    CAUSE: 'CAUSE_OF_DEATH,',
+    CAUSE: 'CAUSE_OF_DEATH',
     MURDERED: 'MURDERED'
   },
   DESIRES: {},
