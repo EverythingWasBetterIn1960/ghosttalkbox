@@ -7,7 +7,8 @@ const ActionTypes = {
   UPDATE_SCORE: 'UPDATE_SCORE',
   ADD_TO_NEGATIVE_SCORE: 'ADD_TO_NEGATIVE_SCORE',
   ADD_TO_POSITIVE_SCORE: 'ADD_TO_POSITIVE_SCORE',
-  ADD_TO_NEUTRAL_SCORE: 'ADD_TO_NEUTRAL_SCORE'
+  ADD_TO_NEUTRAL_SCORE: 'ADD_TO_NEUTRAL_SCORE',
+  ADD_TO_ALL_SCORES: 'ADD_TO_ALL_SCORES'
 }
 
 /**
@@ -31,6 +32,10 @@ export const addToNeutralScore = value => ({
 export const addToPositiveScore = value => ({
   type: ActionTypes.ADD_TO_POSITIVE_SCORE,
   value
+})
+export const addToAllScores = scores => ({
+  type: ActionTypes.ADD_TO_ALL_SCORES,
+  scores
 })
 
 /**
@@ -57,13 +62,20 @@ const inputScoreReducer = (state = defaultScore, action) => {
         negative: state.negative + action.score.negative
       }
     case ActionTypes.ADD_TO_POSITIVE_SCORE: {
-      return {...state, positive: state.positive + action.positive}
+      return {...state, positive: state.positive + action.value}
     }
     case ActionTypes.ADD_TO_NEGATIVE_SCORE: {
-      return {...state, negative: state.negative + action.negative}
+      return {...state, negative: state.negative + action.value}
     }
     case ActionTypes.ADD_TO_NEUTRAL_SCORE: {
-      return {...state, neutral: state.neutral + action.neutral}
+      return {...state, neutral: state.neutral + action.value}
+    }
+    case ActionTypes.ADD_TO_ALL_SCORES: {
+      return {
+        negative: state.negative + action.scores.negative,
+        positive: state.positive + action.scores.positive,
+        neutral: state.neutral + action.scores.neutral
+      }
     }
     default:
       return state
